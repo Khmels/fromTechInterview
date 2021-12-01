@@ -1,16 +1,16 @@
 package edu.example.core.stream;
 
-public class UserExamle {
+public class UserExample {
     private Long id;
     private String name;
     private String email;
     private Integer age;
     private boolean hasWork;
 
-    public UserExamle() {
+    public UserExample() {
     }
 
-    public UserExamle(Long id, String name, String email, Integer age, boolean hasWork) {
+    public UserExample(Long id, String name, String email, Integer age, boolean hasWork) {
         this.id = id;
         this.name = name;
         this.email = email;
