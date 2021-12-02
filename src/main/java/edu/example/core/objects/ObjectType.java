@@ -1,5 +1,9 @@
 package edu.example.core.objects;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class ObjectType {
     public static void main(String[] args) {
         //---------------------- Разница между примитивными типами данных и ссылочными---------------------
@@ -52,7 +56,22 @@ public class ObjectType {
         int x=b.intValue();             //converting Integer to int explicitly
         int y=b;                        //unboxing, now compiler will write a.intValue() internally
 
-        System.out.println(a+" "+i+" "+j);
+
+
+        //----------------------- will it be compiled
+        //List<Object> someList = new ArrayList<String>();  // no
+        Object[] arr =new String[10];                       // yes
+        List<Object> someList = Collections.singletonList(new ArrayList<String>());
+
+        //----------------------- how to create immutable object?
+        /*
+        Creating an Immutable Object: to create an immutable object you need to follow some simple rules:
+                Don't add any setter method
+                Declare all fields final and private
+                If a field is a mutable object create defensive copies of it for getter methods
+                If a mutable object passed to the constructor must be assigned to a field create a defensive copy of it
+                Don't allow subclasses to override methods.
+         */
 
 
     }
