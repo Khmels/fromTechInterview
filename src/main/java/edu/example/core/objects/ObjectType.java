@@ -139,6 +139,7 @@ public class ObjectType {
         Integer iObCache9 = Integer.valueOf(200);   //The Integer class wraps a value of the primitive type int in an object.
         Integer iObCache10 = Integer.valueOf(200);
         System.out.printf("iObCache9.equal(iObCache10): %s%n", iObCache5.equals(iObCache6));
+        System.out.println("---------------------");
 
         /*
         В теретьем случае фактически вызывается статичный метод java.lang.Integer.valueOf(int),
@@ -155,6 +156,20 @@ public class ObjectType {
         Integer iObMethod  = 10;
         method(iObMethod);
 
+        methodPrimitive(iObMethod); // если есть и int, и Integer, то вызовется метод с Integer
+
+        //! Так же следует помнить, что автоупаковка и автораспаковка не работает для массивов.
+
+        Integer[] iObs = new Integer[] {5, 10, 50, 2, 7};
+        methodArray(iObs); // Ошибка компиляции
+        //IDEA: Change 1st parameter of method 'methodArray' from 'int...' to 'Integer[]'
+        System.out.println("---------------------");
+
+        //--- Плохая производительность
+
+        // Классы-обертки неизменяемые, поэтому при каждой автоупаковке (за исключением значений из pool)
+        // создается новый объект, что может привести к неразумному расходу памяти.
+        System.out.println("sumBeforeInclusive(10) = " + sumBeforeInclusive(10));
 
 
         //----------------------- will it be compiled?
@@ -175,6 +190,14 @@ public class ObjectType {
 
     }
 
+    private static void methodArray(Integer[] iObs) {
+        System.out.println("Integer[]");
+    }
+
+    public static void methodArray(int ... i) {
+        System.out.println("int[]");
+    }
+
     public static void method(Integer iOb) {
         System.out.println("Integer:" + iOb);
     }
@@ -182,4 +205,15 @@ public class ObjectType {
     public static void methodPrimitive(int i) {
         System.out.println("int");
     }
+
+    public static void methodPrimitive(Integer iOb) { //Будет вызван данный метод
+        System.out.println("Integer");
+    }
+
+    public static Integer sumBeforeInclusive(Integer number) {
+        Integer iOb = number;
+        if (number > 1) iOb += sumBeforeInclusive(number - 1);
+        return iOb;
+    }
+
 }
