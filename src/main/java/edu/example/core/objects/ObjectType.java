@@ -11,7 +11,7 @@ public class ObjectType {
         /*
         Примитивные типы у себя внутри хранят значение, а ссылочные – ссылку на объект.
         Примитивные типы – это int, char, boolean и ещё немного,
-         ссылочные типы – это все остальные, и образуются они с помощью классов.
+        ссылочные типы – это все остальные, и образуются они с помощью классов.
          */
 
         //---------------------- Wrapper classes
@@ -56,9 +56,108 @@ public class ObjectType {
         int x=b.intValue();             //converting Integer to int explicitly
         int y=b;                        //unboxing, now compiler will write a.intValue() internally
 
+        //---------------------- Autoboxing
+        /*
+        Autoboxing происходит:
+            a1 При присвоении значения примитивного типа переменной соответствующего класса-обёртки.
+            a2 При передаче примитивного типа в параметр метода, ожидающего соответствующий ему класс-обёртку.
+
+         */
+
+        //--До JDK5
+        Integer iOb = new Integer(7);     //IDEA: Unnecessary boxing 'new Integer(7)'
+                                                //IDEA: 'Integer(int)' is deprecated
+        Double dOb = new Double(7.0);
+        Character cOb = new Character('a');
+        Boolean bOb = new Boolean(true);
+
+        method(new Integer(7));  // a1
+
+        //--После JDK5
+        Integer iOb5 = 8;
+        Double dOb5 = 7.0;
+        Character cOb5 = 'a';
+        Boolean bOb5 = true;
+
+        method(8);                // a2
+
+        //---------------------- Unboxing
+        /*
+        Unboxing происходит:
+            При присвоении экземпляра класса-обёртки переменной соответствующего примитивного типа.
+            В выражениях, в которых один или оба аргумента являются экземплярами классов-обёрток (кроме операции == и !=).
+            При передаче объекта класса-обёртки в метод, ожидающий соответствующий примитивный тип.
+         */
+
+        //--- u1. При присвоении
+
+        //--До JDK 5
+        int iu = iOb.intValue();
+        double du = dOb.doubleValue();
+        char cu = cOb.charValue();
+        boolean bu = bOb.booleanValue();
+
+        //--Начиная с JDK 5
+        int iu5 = iOb;
+        double du5 = dOb;
+        char cu5 = cOb;
+        boolean bu5 = bOb;
+
+        //--- u2. В выражениях
+
+        // Так как арифметические операторы и операторы сравнения (исключение == и !=) применяются только к примитивным типам,
+        // приходилось делать распаковку вручную, что заметно снижало читабельность выражений, делая их громоздкими, и кода в целом.
+        Integer iOb1 = new Integer(5);
+        Integer iOb2 = new Integer(7);
+        System.out.println(iOb1.intValue() > iOb2.intValue());
+
+        // Благодаря автораспаковке, мы смело можем писать выражения, не используя методы конвертации.
+        // Теперь за этим следит компилятор Java.
+        System.out.println(iOb1 > iOb2);
+        System.out.println(iOb1 + iOb2);
+        System.out.println("---------------------");
+
+        // При сравнении классов-обёрток оператором == или !=,
+        // происходит сравнение по ссылкам, а не по значениям и может возникнуть путаница.
+
+        Integer iObCache1 = 100;
+        Integer iObCache2 = 100;
+        System.out.println(iObCache1 == iObCache2);     // true
+
+        Integer iObCache3 = new Integer(120);
+        Integer iObCache4 = new Integer(120);
+        System.out.println(iObCache3 == iObCache4);     // false
+
+        Integer iObCache5 = 200;
+        Integer iObCache6 = 200;
+        System.out.println(iObCache5 == iObCache6);     // false
+
+        Integer iObCache7 = Integer.valueOf(200);   //The Integer class wraps a value of the primitive type int in an object.
+        Integer iObCache8 = Integer.valueOf(200);
+        System.out.println(iObCache7 == iObCache8);     // false
+
+        Integer iObCache9 = Integer.valueOf(200);   //The Integer class wraps a value of the primitive type int in an object.
+        Integer iObCache10 = Integer.valueOf(200);
+        System.out.printf("iObCache9.equal(iObCache10): %s%n", iObCache5.equals(iObCache6));
+
+        /*
+        В теретьем случае фактически вызывается статичный метод java.lang.Integer.valueOf(int),
+        который сравнивает с значения integer cache от -128 до 127 (верхнюю границу можно изменять).
+
+        IntegerCache инициализируется во время загрузки класса и при повторном использовании достает их из integer cache
+        (набор инициализированных и готовых к использованию объектов).
+
+        Во втором происходит явное создание объектов, следовательно они имеют разные ссылки.
+        */
+
+        //--- u3. При передачи в метод
+
+        Integer iObMethod  = 10;
+        method(iObMethod);
 
 
-        //----------------------- will it be compiled
+
+        //----------------------- will it be compiled?
         //List<Object> someList = new ArrayList<String>();  // no
         Object[] arr =new String[10];                       // yes
         List<Object> someList = Collections.singletonList(new ArrayList<String>());
@@ -74,5 +173,13 @@ public class ObjectType {
          */
 
 
+    }
+
+    public static void method(Integer iOb) {
+        System.out.println("Integer:" + iOb);
+    }
+
+    public static void methodPrimitive(int i) {
+        System.out.println("int");
     }
 }

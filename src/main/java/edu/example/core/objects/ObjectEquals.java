@@ -128,13 +128,20 @@ public class ObjectEquals {
 
         System.out.println(t1.equals(t2));      //false
         System.out.println(s1.equals(s2));      //true
+
+        //--------------- String equals
+
+        // First - by reference, then - by equals (StringLatin1 or StringUTF16) - char by char
+
     }
 }
-
+//--- Object equals
 /*
         //'java doc'
         //### java.lang.Object @Contract(value = "null -> false", pure = true)
-        //    public boolean equals(Object obj)
+        //    public boolean equals(Object obj){
+        //        return (this == obj);
+        //    }
 
 
         Indicates whether some other object is "equal to" this one.
@@ -166,4 +173,40 @@ public class ObjectEquals {
             true if this object is the same as the obj argument; false otherwise.
         See Also:
             hashCode(), java.util.HashMap
+ */
+
+//--- String equals
+
+    /*
+      Compares this string to the specified object.  The result is {@code
+      true} if and only if the argument is not {@code null} and is a {@code
+      String} object that represents the same sequence of characters as this
+      object.
+
+      <p>For finer-grained String comparison, refer to
+      {@link java.text.Collator}.
+
+      @param  anObject
+              The object to compare this {@code String} against
+
+      @return  {@code true} if the given object represents a {@code String}
+               equivalent to this string, {@code false} otherwise
+
+      @see  #compareTo(String)
+      @see  #equalsIgnoreCase(String)
+     */
+/*
+//    public boolean equals(Object anObject) {
+//        if (this == anObject) {
+//            return true;
+//        }
+//        if (anObject instanceof String) {
+//            String aString = (String)anObject;
+//            if (coder() == aString.coder()) {
+//                return isLatin1() ? StringLatin1.equals(value, aString.value)
+//                        : StringUTF16.equals(value, aString.value);
+//            }
+//        }
+//        return false;
+//    }
  */
