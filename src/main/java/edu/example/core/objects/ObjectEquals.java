@@ -176,37 +176,36 @@ public class ObjectEquals {
  */
 
 //--- String equals
+ /*
+        //'java doc'
+        //### public boolean equals(Object anObject) {
+        //        if (this == anObject) {
+        //            return true;
+        //        }
+        //        if (anObject instanceof String) {
+        //            String aString = (String)anObject;
+        //            if (coder() == aString.coder()) {
+        //                return isLatin1() ? StringLatin1.equals(value, aString.value)
+        //                        : StringUTF16.equals(value, aString.value);
+        //            }
+        //        }
+        //        return false;
+        //    }
 
-    /*
-      Compares this string to the specified object.  The result is {@code
-      true} if and only if the argument is not {@code null} and is a {@code
-      String} object that represents the same sequence of characters as this
-      object.
+          Compares this string to the specified object.  The result is {@code
+          true} if and only if the argument is not {@code null} and is a {@code
+          String} object that represents the same sequence of characters as this
+          object.
 
-      <p>For finer-grained String comparison, refer to
-      {@link java.text.Collator}.
+          <p>For finer-grained String comparison, refer to
+          {@link java.text.Collator}.
 
-      @param  anObject
-              The object to compare this {@code String} against
+          @param  anObject
+                  The object to compare this {@code String} against
 
-      @return  {@code true} if the given object represents a {@code String}
-               equivalent to this string, {@code false} otherwise
+          @return  {@code true} if the given object represents a {@code String}
+                   equivalent to this string, {@code false} otherwise
 
-      @see  #compareTo(String)
-      @see  #equalsIgnoreCase(String)
-     */
-/*
-//    public boolean equals(Object anObject) {
-//        if (this == anObject) {
-//            return true;
-//        }
-//        if (anObject instanceof String) {
-//            String aString = (String)anObject;
-//            if (coder() == aString.coder()) {
-//                return isLatin1() ? StringLatin1.equals(value, aString.value)
-//                        : StringUTF16.equals(value, aString.value);
-//            }
-//        }
-//        return false;
-//    }
- */
+          @see  #compareTo(String)
+          @see  #equalsIgnoreCase(String)
+*/
