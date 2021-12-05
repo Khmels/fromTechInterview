@@ -1,6 +1,6 @@
 package edu.example.core.objects;
 
-import edu.example.core.stream.UserExample;
+import edu.example.core.streams.UserExample;
 
 public class ObjectEquals {
     public static void main(String[] args) {

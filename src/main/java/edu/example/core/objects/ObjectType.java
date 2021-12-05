@@ -2,6 +2,7 @@ package edu.example.core.objects;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class ObjectType {
@@ -176,6 +177,7 @@ public class ObjectType {
         //List<Object> someList = new ArrayList<String>();  // no
         Object[] arr =new String[10];                       // yes
         List<Object> someList = Collections.singletonList(new ArrayList<String>());
+        System.out.println("---------------------");
 
         //----------------------- how to create immutable object?
         /*
@@ -187,7 +189,36 @@ public class ObjectType {
                 Don't allow subclasses to override methods.
          */
 
+        //----------------------- отличие сокращенных и обычных операторов
+        var varX= 2;
+        varX += 0.5;
+        // нет проблем, но значение не изменилось! (varX==2)
+        System.out.println("varX = " + varX);
 
+        // Required type: int  Provided: double
+        //x = x + 0.5;
+
+        // полная запись раскрывает проблему:
+        // x - целое число, при downcasting - потеряется информация,
+        // тип должен быть приведен явно
+        x = (int) (x + 0.5);
+
+        //----------------------- Лишает ли var строгой типизации?
+
+        var fortyTwo = 42.0; // тип float или double? не самое лучшее применение var
+        //fortyTwo = "42";    // контроль типов остается
+
+        var map = new HashMap<String, List<String>>(); //запись короче, инфо остается
+        var list = new ArrayList<>(); // скомпилирует, как ArrayList<Object>
+
+        // не скомпилируется  - недостаточно информации
+        //IDEA: Cannot infer type: 'var' on variable without initializer
+
+            //var unknownType;
+
+        //IDEA: Cannot infer type: variable initializer is 'null'
+
+            //var anyNullableType = null;
     }
 
     private static void methodArray(Integer[] iObs) {
@@ -215,5 +246,7 @@ public class ObjectType {
         if (number > 1) iOb += sumBeforeInclusive(number - 1);
         return iOb;
     }
+
+
 
 }

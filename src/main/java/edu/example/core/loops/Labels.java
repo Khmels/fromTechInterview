@@ -1,4 +1,4 @@
-package edu.example.core.loop;
+package edu.example.core.loops;
 
 public class Labels {
     public static void main(String[] args) {

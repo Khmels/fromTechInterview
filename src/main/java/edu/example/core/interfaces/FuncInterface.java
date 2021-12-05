@@ -1,4 +1,4 @@
-package edu.example.core.functional;
+package edu.example.core.interfaces;
 
 @FunctionalInterface
 public interface FuncInterface {

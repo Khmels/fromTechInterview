@@ -1,4 +1,4 @@
-package edu.example.core.stream;
+package edu.example.core.streams;
 
 public class UserExample {
     private Long id;

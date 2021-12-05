@@ -1,4 +1,4 @@
-package edu.example.core.stream;
+package edu.example.core.streams;
 
 import java.util.ArrayList;
 import java.util.Optional;
