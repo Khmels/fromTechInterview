@@ -116,5 +116,16 @@ public class StreamAPI {
          * @return the new stream
          */
 
+        /*
+        Stream.flatMap, as it can be guessed by its name, is the combination of a map and a flat operation.
+        That means that you first apply a function to your elements, and then flatten it.
+        Stream.map only applies a function to the stream without flattening the stream.
+
+        To understand what flattening a stream consists in,
+        consider a structure like [ [1,2,3],[4,5,6],[7,8,9] ] which has "two levels".
+
+        Flattening this means transforming it in a "one level" structure : [ 1,2,3,4,5,6,7,8,9 ].
+         */
+
     }
 }
