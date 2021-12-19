@@ -117,15 +117,34 @@ public class StreamAPI {
          */
 
         /*
-        Stream.flatMap, as it can be guessed by its name, is the combination of a map and a flat operation.
-        That means that you first apply a function to your elements, and then flatten it.
-        Stream.map only applies a function to the stream without flattening the stream.
+        Both map and flatMap can be applied to a Stream<T> and they both return a Stream<R>.
+        The difference is that the map operation produces one output value for each input value,
+        whereas the flatMap operation produces an arbitrary number (zero or more) values for each input value.
 
-        To understand what flattening a stream consists in,
-        consider a structure like [ [1,2,3],[4,5,6],[7,8,9] ] which has "two levels".
+        This is reflected in the arguments to each operation.
 
-        Flattening this means transforming it in a "one level" structure : [ 1,2,3,4,5,6,7,8,9 ].
+        The map operation takes a Function, is called for each value in the input stream
+        and produces one result value, which is sent to the output stream.
+
+        The flatMap operation takes a function that conceptually wants to consume one value
+        and produce an arbitrary number of values.
+        (number which could be any number it is defined to be but for which no specific value is chosen)
+
+        However, in Java, it's cumbersome for a method to return an arbitrary number of values,
+        since methods can return only zero or one value.
+
+        One could imagine an API where the mapper function for flatMap takes a value
+        and returns an array or a List of values, which are then sent to the output.
+
+        Given that this is the streams library, a particularly apt way to represent an arbitrary number of return values
+        is for the mapper function itself to return a stream!
+
+        The values from the stream returned by the mapper are drained from the stream and are passed to the output stream.
+        The "clumps" of values returned by each call to the mapper function
+        are not distinguished at all in the output stream, thus the output is said to have been "flattened."
+
+        Typical use is for the mapper function of flatMap to return Stream.empty() if it wants to send zero values,
+        or something like Stream.of(a, b, c) if it wants to return several values. But of course any stream can be returned.
          */
-
     }
 }
